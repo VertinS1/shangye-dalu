@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>新社员注册与开赛指引 · 商业大陆商业模拟</title>
+<style>
+  :root {
+    --ink: #0d1526; --ink-2: #344054; --muted: #667085;
+    --line: #e4e8f0; --line-2: #eef1f6;
+    --primary: #2f5bea; --primary-ink: #1d3fae; --primary-soft: #eef2fe;
+    --amber: #b45309; --amber-soft: #fdf3e3;
+    --danger: #dc2626; --danger-soft: #fdecec;
+    --ok: #15803d; --ok-soft: #eaf7ef;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 36px 18px 72px;
+    background: #f4f6fa;
+    color: var(--ink);
+    font: 15px/1.75 -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .sheet {
+    max-width: 840px; margin: 0 auto; background: #fff;
+    border: 1px solid var(--line); border-radius: 14px;
+    padding: 40px 44px 48px;
+    box-shadow: 0 1px 2px rgba(16,24,40,.04), 0 10px 28px -14px rgba(16,24,40,.16);
+  }
+  .brand { display: flex; align-items: center; gap: 9px; font-size: 13px; color: var(--muted); letter-spacing: .3px; }
+  .brand i { width: 9px; height: 9px; border-radius: 50%; background: var(--primary); box-shadow: 0 0 0 4px var(--primary-soft); }
+  h1 { font-size: 27px; line-height: 1.35; margin: 14px 0 6px; letter-spacing: -.2px; }
+  .sub { color: var(--muted); font-size: 14px; margin: 0 0 4px; }
+  h2 {
+    font-size: 18px; margin: 40px 0 12px; padding-bottom: 9px;
+    border-bottom: 1px solid var(--line-2); letter-spacing: -.1px;
+  }
+  h2 .n {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 23px; height: 23px; margin-right: 9px; border-radius: 7px;
+    background: var(--primary-soft); color: var(--primary-ink);
+    font-size: 13px; font-weight: 600; vertical-align: 2px;
+  }
+  h3 { font-size: 15px; margin: 22px 0 8px; }
+  p { margin: 10px 0; color: var(--ink-2); }
+  ul, ol { margin: 10px 0; padding-left: 22px; color: var(--ink-2); }
+  li { margin: 6px 0; }
+  b { color: var(--ink); }
+  code {
+    padding: 2px 6px; border-radius: 5px; background: var(--line-2);
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; color: var(--ink);
+  }
+  a { color: var(--primary); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
+  th, td { padding: 9px 11px; border-bottom: 1px solid var(--line-2); text-align: left; vertical-align: top; }
+  thead th { background: #fafbfd; color: var(--muted); font-weight: 600; font-size: 13px; border-bottom: 1px solid var(--line); }
+  tbody tr:last-child td { border-bottom: none; }
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .tag {
+    display: inline-block; padding: 1px 8px; border-radius: 999px;
+    font-size: 12px; line-height: 19px; font-weight: 500; white-space: nowrap;
+  }
+  .tag.blue { background: var(--primary-soft); color: var(--primary-ink); }
+  .tag.amber { background: var(--amber-soft); color: var(--amber); }
+  .tag.ok { background: var(--ok-soft); color: var(--ok); }
+  .tag.danger { background: var(--danger-soft); color: var(--danger); }
+  .box {
+    margin: 14px 0; padding: 12px 15px; border-radius: 9px; font-size: 14px;
+    border: 1px solid var(--line); background: #fafbfd; color: var(--ink-2);
+  }
+  .box.info { background: var(--primary-soft); border-color: #d6e0fd; color: var(--primary-ink); }
+  .box.warn { background: var(--amber-soft); border-color: #f6e2c0; color: var(--amber); }
+  .box.bad { background: var(--danger-soft); border-color: #f7cfcf; color: var(--danger); }
+  .box.ok { background: var(--ok-soft); border-color: #cfe9d9; color: var(--ok); }
+  .box b { color: inherit; }
+  .steps { counter-reset: st; list-style: none; padding: 0; margin: 16px 0; }
+  .steps > li {
+    counter-increment: st; position: relative;
+    padding: 0 0 18px 46px; margin: 0; border-left: 2px solid var(--line-2);
+    margin-left: 13px;
+  }
+  .steps > li:last-child { border-left-color: transparent; padding-bottom: 0; }
+  .steps > li::before {
+    content: counter(st); position: absolute; left: -13px; top: 0;
+    width: 26px; height: 26px; border-radius: 50%;
+    background: var(--primary); color: #fff;
+    font-size: 13px; font-weight: 600;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .steps > li > b { display: block; margin-bottom: 4px; font-size: 15px; }
+  .steps p { margin: 4px 0; }
+  .kv { display: grid; grid-template-columns: 96px 1fr; gap: 8px 14px; margin: 12px 0; font-size: 14px; }
+  .kv dt { color: var(--muted); }
+  .kv dd { margin: 0; color: var(--ink-2); }
+  .faq { margin: 14px 0; }
+  .faq details {
+    border: 1px solid var(--line); border-radius: 9px; padding: 0 15px;
+    margin-bottom: 9px; background: #fff;
+  }
+  .faq summary {
+    cursor: pointer; padding: 12px 0; font-weight: 600; font-size: 14.5px;
+    color: var(--ink); list-style: none;
+  }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::before { content: "＋ "; color: var(--primary); font-weight: 700; }
+  .faq details[open] summary::before { content: "－ "; }
+  .faq details > div { padding: 0 0 14px; font-size: 14px; color: var(--ink-2); }
+  .faq details > div p:first-child { margin-top: 0; }
+  .actions { display: flex; gap: 10px; justify-content: flex-end; margin-bottom: 18px; }
+  .actions button {
+    padding: 8px 16px; border-radius: 8px; border: 1px solid var(--line);
+    background: #fff; color: var(--ink-2); font-size: 13.5px; cursor: pointer;
+    font-family: inherit;
+  }
+  .actions button.primary { background: var(--primary); border-color: var(--primary); color: #fff; }
+  footer {
+    margin-top: 42px; padding-top: 18px; border-top: 1px solid var(--line-2);
+    font-size: 13px; color: var(--muted);
+  }
+  footer b { font-weight: 600; }
+
+  @media print {
+    body { background: #fff; padding: 0; font-size: 12.5px; }
+    .sheet { max-width: none; border: none; box-shadow: none; border-radius: 0; padding: 0; }
+    .actions { display: none; }
+    h2 { page-break-after: avoid; }
+    table, .box, .faq details { page-break-inside: avoid; }
+    .faq details { border-color: #ddd; }
+    .faq details > div { display: block !important; }
+    a { color: var(--ink); }
+  }
+  @media (max-width: 700px) {
+    .sheet { padding: 26px 20px 34px; }
+    h1 { font-size: 22px; }
+    .kv { grid-template-columns: 1fr; gap: 2px 0; }
+    .kv dd { margin-bottom: 8px; }
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <div class="actions">
+    <button class="primary" onclick="window.print()">打印 / 存为 PDF</button>
+    <button onclick="window.open('https://biz-sim-arena.app.workbuddy.host/','_blank')">进入赛场</button>
+  </div>
+
+  <div class="brand"><i></i>商业大陆 · 商业模拟运营赛</div>
+  <h1>新社员注册与开赛指引</h1>
+  <p class="sub">从注册到打出第一笔生意，你需要知道的全部事情。看完这一页，你就能自己上场了。</p>
+
+  <div class="box info">
+    <b>赛场网址：</b><a href="https://biz-sim-arena.app.workbuddy.host/" target="_blank" rel="noopener">https://biz-sim-arena.app.workbuddy.host/</a><br>
+    <b>建议浏览器：</b>电脑上使用 Chrome / Edge 打开，屏幕大、表格看得清；手机能登录但操作不方便，正式比赛请在电脑上打。
+  </div>
+
+  <h2><span class="n">0</span>一分钟看懂这是什么</h2>
+  <p>你们会被分成若干家公司，共用一块架空大陆「商业大陆」的市场。整场比赛按 <b>财年</b> 推进，裁判每开启一个财年，原材料供给、消费者需求和汇率都会重新生成一次。你要在自己的角色限制下，让公司的 <b>净资产</b> 尽量高。</p>
+  <ul>
+    <li><b>这不是单机游戏</b>：原料是限量的、政府订单是有限的，你的对手和你抢同一批货、同一笔订单。</li>
+    <li><b>系统只负责记账</b>：合同怎么谈、价格开多少、要不要联手，全部由你们自己决定。</li>
+    <li><b>随时能看规则</b>：登录后左侧「帮助 → 规则手册」有完整细则，遇到不确定的地方先查手册。</li>
+    <li><b>玩得深一点</b>：左侧「交易所」分组里有一整座物品交易所 —— 行情实时滚动、五档盘口撮合、还能把自己公司<b>挂牌上市</b>、发行企业债。等你熟悉了基础操作，去第 9 节看看。</li>
+  </ul>
+
+  <h2><span class="n">1</span>注册前先想清楚三件事</h2>
+  <div class="kv">
+    <dt>你的邮箱</dt>
+    <dd>必须是你<b>真的能收信</b>的邮箱（QQ 邮箱、163、Gmail 都行）。系统靠邮箱验证码登录、发通知，写错了就收不到。收不到验证码时记得翻<b>垃圾邮件</b>。</dd>
+    <dt>公司名字</dt>
+    <dd>24 字以内，<b>全场不能重名</b>。想个像公司的名字，比如「北岭机械制造」「远洋贸易行」。注册后可以在建档页随时改名。</dd>
+    <dt>你要演谁</dt>
+    <dd>先和队友商量好谁当制造商、谁当贸易商。角色定了基本就定了这一局的玩法，不要全组都选同一个。往下看第 2 节的角色表。</dd>
+  </div>
+
+  <h2><span class="n">2</span>五个角色，你适合哪个</h2>
+  <table>
+    <thead>
+      <tr><th>角色</th><th>你干什么</th><th>适合谁</th><th>能不能自己注册</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>制造商</b><br><span class="tag blue">生产端</span></td>
+        <td>买原材料 → 研发新产品（要政府批，<b>同时申报单件工时与预期可产</b>） → <b>开工生产</b>（投产框默认填「最多可产」，点「投产」后要按工时等待，<b>批量越大等得越久，最长 20 分钟</b>） → 卖给贸易商；闲时接别人的<b>代工单</b>赚加工费，把配方<b>授权</b>给同行收提成</td>
+        <td>喜欢动手做东西、擅长算成本的人</td>
+        <td><span class="tag ok">可以</span></td>
+      </tr>
+      <tr>
+        <td><b>贸易商</b><br><span class="tag blue">贸易端</span></td>
+        <td>从制造商手里收货 → 写路演方案 → 承接政府招标 / 拿政府报价 → 交付收外币 → 换汇；也能<b>委托代工</b>自己造货，战事一起给交战国<b>供军需</b>赚钱</td>
+        <td>擅长谈判、愿意跑关系、反应快的人</td>
+        <td><span class="tag ok">可以</span></td>
+      </tr>
+      <tr>
+        <td><b>新闻媒体</b></td>
+        <td>发资讯、接广告赚广告费，还能用一篇报道把某个品种的价格推上去或打下来（每财年 3 篇，±0.5%~±6%）</td>
+        <td>文笔好、喜欢写东西的人</td>
+        <td><span class="tag ok">可以</span></td>
+      </tr>
+      <tr>
+        <td><b>政府</b><br><span class="tag danger">管理</span></td>
+        <td>掌握国库：发<b>政府采购招标</b>、颁<b>政策法令</b>（补贴 / 出口奖励 / 原料配额 / 基建）、做<b>国库平准操作</b>托价压价；另外审批研发、给路演报价、调汇率关税、在市场干预台改写行情、审批宣战与贸易战、裁定贷款强执</td>
+        <td>由裁判指定，通常是学生干部或老师</td>
+        <td><span class="tag danger">需要口令</span></td>
+      </tr>
+      <tr>
+        <td><b>裁判 / 组委会</b><br><span class="tag danger">管理</span></td>
+        <td>开年、结算、调资金、查账，全场节奏由他控制</td>
+        <td>社团负责人 / 老师</td>
+        <td><span class="tag danger">需要口令</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="box warn">
+    <b>「政府」和「裁判 / 组委会」不开放自助注册。</b>这两个角色能审批研发、定汇率、甚至直接改全场资金，所以注册时必须填写组委会下发的<b>管理口令</b>。如果你是这两个角色，向社团负责人索取口令即可；普通社员请直接选前三个角色。
+  </div>
+  <div class="box">
+    <b>建议的队伍配比：</b>至少 2 名制造商 + 2 名贸易商 + 1 名媒体；政府 1 名、裁判 1 名（人数不够时裁判可以兼任政府）。只有 1 个制造商的话，全场会缺货、贸易商没东西可卖，比赛会不好玩。
+  </div>
+
+  <h2><span class="n">3</span>四步走完注册（大约 3 分钟）</h2>
+  <ol class="steps">
+    <li>
+      <b>打开赛场网址</b>
+      <p>进入 <a href="https://biz-sim-arena.app.workbuddy.host/" target="_blank" rel="noopener">https://biz-sim-arena.app.workbuddy.host/</a>。第一次打开会看到左边的介绍页和右边的登录框。</p>
+    </li>
+    <li>
+      <b>注册账号（邮箱 + 验证码 + 密码）</b>
+      <p>点右侧的 <code>注册</code> 标签页，填写邮箱 → 点「获取验证码」 → 去邮箱把 6 位数字填回来 → 设置一个 <b>6 位以上的登录密码</b> → 点「注册并进入」。</p>
+      <p>提示：验证码 60 秒内不能再发第二次，请耐心等。收不到就看垃圾邮件；还是收不到，直接把邮箱换成另一个再来。</p>
+    </li>
+    <li>
+      <b>组建队伍（公司名 + 角色）</b>
+      <p>登录后会进入「组建你的队伍」页面：填公司名 → 点一张角色卡片选中它（选中会打勾） → 点「确认并进入赛场」。</p>
+      <p>如果你选的是政府或裁判，页面会<b>多出一个「管理口令」输入框</b>，填组委会给的口令才能提交。口令错了系统会明确告诉你，不会白白卡住。</p>
+      <p>角色选错了也不用慌：这个页面随时能再进来改，但<b>改角色会把你的资金重置回初始值</b>，开赛后再改就亏了，所以第一次就选对。</p>
+    </li>
+    <li>
+      <b>等裁判开年，然后开干</b>
+      <p>注册完你可能会看到「比赛尚未开始」的提示 —— 这是正常的，裁判要先在「裁判台」点「开启财年」，全场的原材料、需求、汇率才会生成。开年后你就可以按第 4 节开始操作了。</p>
+    </li>
+  </ol>
+
+  <h2><span class="n">4</span>每个角色的第一财年怎么打</h2>
+
+  <h3>如果你是制造商</h3>
+  <ol>
+    <li><b>先看盘，再抢料</b>：打开「市场行情 → 行情中心」，先扫一圈今天的现货价 —— 页面最上沿那条滚动行情带就是全场实价。跌得多的材料可以多囤一点，冲在高位的先按需少买。<b>原材料是按现货价成交的</b>，不是目录价，买早买晚差价可能不小。</li>
+    <li><b>抢料</b>：去「原材料市场」采购 —— 全场共 <b>54 种</b>原材料，从几块钱的盐、纸浆到 40 G 以上的稀土、钻石都有，按你的产品配方买够。芯片每财年只有 100 单位，是全场最抢手的，开年第一件事就是抢它。</li>
+    <li><b>再研发</b>：到「研发中心」设计自己的产品 —— 名字、配方、每件用量、<b>预计单件生产工时</b>、<b>预期可产</b>都由你定。<b>配方只能从你库存里真有的材料中挑</b>，没有的材料不会出现在选项里。工时要认真填：审批通过后它会<b>固化成这款产品的量产节拍</b>，以后每次投产都按它算等待时间（旁边有实时预估，会告诉你量产 100 件、500 件各要等多久）。「预期可产」也要认真填：它就是这款产品将来的<b>「最多可产」</b> —— 审批通过后固化成生产中心里这款产品<i>单笔最多能投多少件</i>的上限（默认 50 件）。填完提交给政府审批。</li>
+    <li><b>等审批</b>：政府批了以后，你会在右上角邮筒里收到通知 —— 邮件里会写明核准的工艺参数。</li>
+    <li><b>开工</b>：到「生产中心」填投产数量。系统按配方扣料，<b>料不够会直接拒绝，不会生产一半</b>。数量框默认就填这款产品的<b>「最多可产」</b>（单笔上限：研发报批过的产品＝你申报的预期可产，通用产品＝组委会设的全场默认值，默认 <b>50 件</b>），填超了会被系统拒收 —— 要做大货就分几批投。注意「最多可产」只是天花板，<b>手头原料不够时实际能投的件数更少</b>（旁边会标「原料限制」）。<b>投产有工时，做的货越多等得越久</b>：点下去的那一刻原料就被扣走锁定，这一批货进入「在建产线」，要等「8 秒 + 单件工时 × 数量」才出成品（默认 1.2 秒/件：5 件约十几秒、200 件约 4 分钟、500 件约 10 分钟，999 件封顶 20 分钟）。生产中心顶部的「在建产线」里有进度条和倒计时。完工后成品才真正入库；<b>自动上架开着时</b>系统会立刻替你挂到交易所盘口（在「我的委托」里可改价可撤单），同时给所有贸易商发通知邮件。</li>
+    <li><b>卖货</b>：到「交易所 → 物品交易所 → 挂单交易台」，选「上架货物」把成品挂出去，等买家来吃单（也可以点「试样上架」让系统先挂一小部分）。<b>系统商户只卖不买</b> —— 你挂出去的单子会老老实实挂在盘上等真人（贸易商 / 制造商 / 政府）来接，不会被系统顺手收走。谈好了指定买家，就走「合同中心」定向卖。</li>
+    <li><b>产能别闲着</b>：到「产业协作 → 我接的代工订单」，接别人下的代工单 —— <b>原料和加工费都由委托方先托管</b>，你只出产能，点一下「开工生产」，成品直接进对方的库、加工费立刻到你账上，<b>零风险纯赚</b>。</li>
+    <li><b>把配方变成现金</b>：你研发的产品只有你能生产？到「产业协作 → 专利授权」，授权给同行并设一笔<b>每件提成</b>（可加一次性授权费）。对方此后每投产一件，系统都会自动打钱给你 —— 你等于有了一条不用开工的收入线。</li>
+  </ol>
+
+  <h3>如果你是贸易商</h3>
+  <ol>
+    <li><b>抢货</b>：到「交易所 → 物品交易所 → 挂单交易台」。想立刻拿货就切到「市场挂单」页签直接吃单；不着急就选「发布求购」把自己要买的品种挂出来，让卖家主动送上门。手慢了就被同行买走了。</li>
+    <li><b>提方案</b>：到「路演中心」提交你的商业计划 —— 主推什么产品、有多少货、期望单价多少。方案全场公开，对手能看到你在推什么。</li>
+    <li><b>等报价</b>：政府在「政府台」给你的路演方案下达收购报价（单价 + 数量上限 + 用哪种货币结算）。</li>
+    <li><b>交付收外币</b>：到「政府市场」按报价交付，收到星洲币 ★ 或贺兰币 ◆。</li>
+    <li><b>抢政府招标单</b>：政府每财年会直接在「政府台」开<b>采购招标</b>——写明买什么、要多少、什么价、用哪种货币（金币 / 星洲币 / 贺兰币）。这类订单<b>只有贸易商能承接</b>，先把库存备齐，再点「承接交付」。<b>第一个交付的人赚钱</b>，量满就关单，动作慢了只能等下一单。</li>
+    <li><b>吃政策红利</b>：政府颁布的<b>出口奖励</b>会让你的政府订单溢价到账；<b>原料配额</b>会在新财年直接给全场贸易商补货。发政策的那一秒就要判断：这波该不该加仓。</li>
+    <li><b>没工厂也能出货</b>：到「产业协作 → 委托代工」，选一家制造商、选产品、填数量与加工费，点「下单托管」。<b>原料从你的库存划走托管、加工费先扣到你这边</b>，工厂开工后成品直接进你的库。<b>撤单全额退回</b>，不会有死钱。这是贸易商唯一能"造货"的合法通道。</li>
+    <li><b>有人开战就去赚钱</b>：一旦有战事，「商战与制裁」里会出现「<b>军需供货</b>」—— 交战国挂出的军需买单<b>报价通常高于市价，而且当场结清</b>。把你囤的原料或成品交进去，既赚差价又清库存。（注意：参战双方本人不能接自己的单。）</li>
+    <li><b>换汇</b>：外币不能直接花，到「外汇兑换」换回金币。汇率每天在动，可以现在换，也可以赌它涨 —— 这是贸易商之间的第二层博弈。</li>
+  </ol>
+
+  <h3>如果你是媒体</h3>
+  <ol>
+    <li>到「媒体中心」发布资讯，全场的「情报流」都能看到。</li>
+    <li>别的公司可以付费在你这里投广告，广告费直接进你的口袋。</li>
+    <li>玩得好的媒体能左右舆论 —— 谁给你投广告你就多报道谁，这是你的筹码。</li>
+  </ol>
+
+  <h3>如果你是政府</h3>
+  <p>政府是全场唯一的「<b>需求方 + 财政部 + 央行 + 监管者</b>」。你不是裁判 —— 你要亲自下场调节经济，而且<b>每一分钱都从同一个国库里出</b>。花在哪、什么时候花，就是你这个角色唯一的核心决策。</p>
+  <ol>
+    <li><b>先看「宏观体检报告」</b>：打开「政务服务 → 政府台」。最上面是 9 张宏观统计卡（国库余额、本财年收入 / 支出 / 结余、战略储备估值、CPI 物价指数、GDP、成交额、采购完成度），下面是一份<b>动态体检报告</b>——它会自动告诉你现在该干什么（比如「CPI 已到 118，建议抛储压价」「国库结余充足，建议加大采购」「本财年还没有采购招标，全场贸易商在干等」）。<b>每财年开局先读它</b>。</li>
+    <li><b>发政府采购招标</b>：「政府台 → 发布政府采购招标」。填品种、数量、单价、结算货币（金币 / 星洲币 / 贺兰币）、可选定向给某一家公司。下单瞬间<b>按「单价 × 数量」预扣全额国库资金</b>，所以报价前先看国库够不够。订单全场公开，<b>只有贸易商能承接</b>；未成交部分随时可以撤销并退款，不会变成死钱。每财年可同时在办的订单数有上限（默认 8 笔）。<b>这是你拉动经济最快的一根杠杆</b>——招标一出，贸易商会立刻开始囤货。</li>
+    <li><b>颁布政策法令</b>：「政府台 → 颁布政策法令」，四类工具，每类都要先<b>划拨一笔预算池</b>（也从国库扣）：
+      <ul>
+        <li><b>产业补贴</b>：指定某个产品，制造商每生产 1 件就从池子里领一笔补贴。<b>等于给厂家降成本</b>，池子扣完自动失效。</li>
+        <li><b>出口奖励</b>：按交付金额的百分比给贸易商额外奖励，池子扣完为止。<b>等于给出口加价</b>，直接刺激交付量。</li>
+        <li><b>原料配额</b>：下一财年开年时，一次性给全场贸易商补一批指定原料。<b>等于定向放水</b>，适合缓解「芯片荒」这类卡脖子。</li>
+        <li><b>基建投资</b>：<b>立刻</b>把某个原材料的本财年需求价往上推，拉动上游生产。</li>
+      </ul>
+      同财年同品种同类政策只能有一条，基建 / 出口奖励各限一条；每财年在效政策总数也有上限（默认 3 条）。政策可以随时「撤销」，剩余预算会退回国库。</li>
+    <li><b>做国库平准操作</b>：「政府台 → 国库平准操作」。这是你的<b>央行工具箱</b>：<b>收储</b>（花国库钱买进某原材料入库，把价格往上顶）和<b>抛储</b>（把战略储备卖出去，把钱收回国库，把价格压下来）。价格冲击是即时的、写进全场实时行情，所有角色的盘面同时变。适合在 CPI 过热时压、在暴跌时托 —— 但<b>亏钱是真的亏，这个盘子没有补贴</b>。</li>
+    <li><b>日常审批与调控</b>：审批制造商的研发申请（批得太慢会卡住整条产业链）；给贸易商的路演方案下达收购报价（报价太低没人做）；按需调整汇率与关税。</li>
+    <li><b>当全场商战的闸门</b>：到「商战与制裁 · 组委会审批台」处理三件事 —— <b>核准或驳回宣战申请</b>、<b>核准或驳回贸易战 / 反制申请</b>、调停战争与解除制裁。<b>没有组委会批准，任何宣战与贸易战都不会生效</b>，你是唯一能叫停的人。</li>
+    <li><b>兜底干预</b>：行情太离谱时，可以到「行情中心 → 组委会 · 市场干预台」像央行一样出手：投放战略储备把原料价格打下来，或者制造一次突发事件把某类商品推上去（±60% 以内），也可以一键把行情重置回基准价。</li>
+    <li><b>战事一起，你就多了一张牌：军援</b>。在「商战与制裁 → 国库军援」里，你可以从国库直接拨款<b>支援交战中的某一方</b>，钱立刻算进那一方的战力。上限是该方已投入军费的 100% —— 你不能凭空造一个赢家，只能扶一个已经在下本钱的人。但<b>国库只有一个口袋</b>：援了攻方，就没钱援守方、没钱发补贴、没钱搞采购。所以每次军援都是一次<b>公开站队</b>，会即时公告全场。这是政府唯一能在战场上说话的方式 —— 用不用、站哪一边，是最难的一次决策。</li>
+  </ol>
+
+  <div class="box">
+    <b>政府的三条铁律：</b>
+    <ul>
+      <li><b>国库不是无限的，而且只有一个钱包。</b>采购预扣、政策预算、平准操作、补贴发放 —— <b>全部从同一笔国库资金里扣</b>。花光了后面什么都做不了。每财年结转时系统按「基础拨款 + 上财年全场真实成交流水 × 税率」重新注资，<b>打不出成绩，明年的钱就少</b>。注意：裁判手动调给你的资金不计入税基。</li>
+      <li><b>招标价开得离谱 = 送钱，开得太低 = 没人接。</b>报价高于市价，贸易商会疯抢、国库快烧完；低于市价，订单挂一整个财年也没人碰。先看「宏观体检报告」里的 CPI 和成交价再定价。</li>
+      <li><b>你是唯一的需求方，你不动，全场就停。</b>制造商要有人买货才敢扩产，贸易商要有人收货才敢囤货。一个财年不招标、不发政策，全场大概率原地踏步 —— 你的懒会直接体现在 GDP 上。</li>
+    </ul>
+  </div>
+
+  <div class="box">
+    <b>十三个容易忽略的细节：</b>
+    <ul>
+      <li><b>盯行情，别拿死价格算账。</b>页面最上沿那条滚动的行情带、以及「市场行情 → 行情中心」里的大盘，就是全场的<b>实时现货价</b>：原材料按它成交，「生产中心」里的原料成本与理论毛利、你的原料浮动盈亏也都跟着它变。红涨绿跌，看涨跌幅就知道现在该囤还是该等。场上一有战争或制裁，波动会立刻放大。</li>
+      <li><b>投产不是点一下货就到手，做得多等得久。</b>「生产中心」点「投产」的那一瞬间，原料就被扣走锁定，产线要等「8 秒 + 单件工时 × 数量」才出成品（默认 1.2 秒/件：5 件十几秒，200 件约 4 分钟，500 件约 10 分钟，<b>999 件封顶 20 分钟</b>）。生产中心顶部的「在建产线」里能看到进度条和倒计时。<b>急着交货的把这整段等待算进去，别等到最后一刻才投产。</b></li>
+      <li><b>研发报的工时，会跟着你的产品一辈子。</b>研发时申报的单件工时一经政府批准就<b>固化到产品上</b>，决定它以后每次量产的等待时间 —— 随手填 30 秒/件，以后每做 10 件就要等 5 分钟。填的时候旁边有实时预估，先看清再提交。</li>
+  <li><b>「最多可产」不是「至少能产这么多」，而是单笔上限。</b>生产中心那一列和投产框的默认值，就是这款产品<b>一次最多能投几件</b>：研发报批过的产品＝你申报的「预期可产」，通用产品＝组委会设的全场默认值（默认 <b>50 件</b>），填超了系统直接拒收。做几百件的大货要<b>分几批投</b>，每批各自计时。如果某款产品上限卡得太死，可以请组委会在「裁判台 → 产品产量上限」里单独放宽 —— 组委会还能改全场默认值。</li>
+      <li><b>自动上架开不开，看组委会。</b>默认是开着的：产线一完工系统就按「单位成本 × 1.8」（受涨跌停板约束）替你挂好一张卖单，在「交易所 → 挂单交易台 → 我的委托」里能看能改。如果组委会把它关掉，完工的货就只进你的库存，要卖得自己上架 —— 开工前先扫一眼生产中心顶部那张卡片上的状态标签。</li>
+      <li><b>「我的库存」数字变小了，先别慌 —— 货多半在委托里。</b>挂卖单会把那批货从「可用库存」划到「<b>在委托中</b>」那一列，数字当场变小，但货没丢，撤单原样退回 —— <b>两列加起来才是你的全部家当</b>。另外记住盘口的两条规矩：系统商户（S-01 ~ S-05）<b>只卖不买</b>，你挂出去的货<b>不会</b>被系统顺手收走，得等真实的贸易商 / 制造商 / 政府来接；反过来你想买货随时买得到，<b>买下成交的那一刻货就进可用库存</b>。系统<b>绝不会</b>偷偷替你上架：走进交易所时它只保证做市盘不空，你库存里有多少货就是多少货。</li>
+      <li><b>交易所挂单台才是真正能赚差价的地方。</b>「交易所 → 物品交易所 → 挂单交易台」是全场玩家做买卖的唯一入口（原来的「贸易市场」「场外市场」已经整体并进来）：卖货点「上架货物」、买货点「发布求购」，也可以到「市场挂单」直接吃别人的便宜货。低价囤、高价抛，赚的差价不占产能。注意 —— 挂卖单会先把货<b>托管</b>出去，挂买单会把钱<b>冻结</b>，撤单才会退回。懒得分批挑就点「试样上架」：系统从你库存里挑两个数量最多的品种，<b>各挂出 20%</b>，其余货照旧留在仓库，不会被一次性托管走；它只上架、不动你的现金。挂出去的那部分会显示在「我的库存 → 在委托中」；<b>系统商户只卖不买</b>，所以这单要等真人（贸易商 / 制造商 / 政府）来接 —— 同样地，你想买货随时买得到，成交那一刻货就进可用库存。</li>
+      <li><b>投屏用「交易大厅大屏」。</b>「市场行情 → 交易大厅大屏」点一次「全屏投屏」就能铺满教室前面那块屏：报价墙 + 大字走势图 + 底部滚动行情，每 6 秒跳一档，和所有人手机上看到的是同一个价。Esc 退出。</li>
+      <li><b>衍生品是工具，不是融资渠道。</b>「资本与博弈 → 衍生品中心」里可以签<b>锁价合约</b>（10% 保证金，最多亏掉保证金）和<b>做空</b>（30% 保证金，涨到强平价会被自动强平）。它们是给"有判断"的人放大收益用的，缺钱请去借贷中心。</li>
+      <li><b>商战要过审批。</b>宣战和发动贸易战都只是"提交申请"，必须等组委会（政府 / 裁判）在「商战与制裁 · 组委会审批台」核准后才生效。批准前不扣任何费用；批准宣战会立即划扣军费 + 10% 战时动员税、信用分 −5。战争是分轮打的，进度条和逐轮战报实时可见。</li>
+      <li><b>打仗要打「军需」这条线。</b>交战双方在「商战与制裁」里可以「投入军需物资」把库存直接折成战力（按市价 90%，<b>投出去就没了</b>），也可以发「军需订单」花现金向全场买货（<b>货款先托管、打不完自动全额退回</b>）。同时 —— <b>任何公司都能给交战国供货赚钱</b>，这是全场最不讲价的一批买家。记住：先挂军需单让市场替你备货，比临阵烧自家库存划算。</li>
+      <li><b>产能和配方都能单独卖钱。</b>「贸易与合作 → 产业协作」是产业链的"中介所"：有配方没工厂的，出料出钱<b>委托代工</b>；有工厂没订单的，只出产能<b>接代工</b>（原料和加工费都由委托方先托管，零风险赚加工费）；研发方还能把配方<b>授权</b>给同行，每投产一件自动收提成。撤销代工单 / 撤销授权都不留死钱。</li>
+      <li><b>合同对全角色开放。</b>「合同中心」不限身份 —— 生产商、贸易商、媒体、政府、裁判都能起草和签署合同，也能指定某一家人独占签署权。</li>
+      <li><b>左侧菜单可以收起来。</b>功能列表右侧有一个竖直滑块：单击收起 / 展开，左右拖动调宽度（150–380px），双击复位。窄屏手机上会自动变成横向菜单条。</li>
+    </ul>
+  </div>
+
+  <h2><span class="n">5</span>三种货币，别搞混</h2>
+  <table>
+    <thead><tr><th>货币</th><th>符号</th><th>在哪出现</th><th>怎么用</th></tr></thead>
+    <tbody>
+      <tr><td><b>金币</b></td><td class="num">G</td><td>全场，默认结算货币</td><td>买料、买货、发广告、发工资式的各种支出都用它</td></tr>
+      <tr><td>星洲币</td><td class="num">★</td><td>政府市场出口结算</td><td>要去「外汇兑换」换成金币才能继续周转</td></tr>
+      <tr><td>贺兰币</td><td class="num">◆</td><td>政府市场出口结算</td><td>同上</td></tr>
+    </tbody>
+  </table>
+  <p>你的<b>净资产</b> = 金币 + 外币按当日汇率折算 + 库存估值 + <b>股权市值</b> + <b>债券市值</b>。排行榜就是按净资产排的，而且是<b>实时</b>的 —— 你做成一笔生意，名次立刻会变。所以囤着一堆货不卖，净资产涨不上去。</p>
+
+  <h2><span class="n">6</span>遇到问题看这里</h2>
+  <div class="faq">
+    <details><summary>收不到邮箱验证码怎么办？</summary>
+      <div>
+        <p>按顺序试这几步：</p>
+        <ol>
+          <li>先翻<b>垃圾邮件 / 广告邮件</b>文件夹，十有八九在那里。</li>
+          <li>确认邮箱地址没有打错（特别是 QQ 邮箱后面的 <code>@qq.com</code>）。</li>
+          <li>验证码按钮有 60 秒倒计时，点太快不会重发，等倒计时走完再点。</li>
+          <li>还不行就换一个邮箱重新注册，学校邮箱有时候会拦。</li>
+          <li>最后都失败了，找裁判帮你手动建号。</li>
+        </ol>
+      </div>
+    </details>
+    <details><summary>忘记密码了怎么办？</summary>
+      <div>
+        <p>在登录页点「密码登录」下面的 <b>忘记密码？</b>，用邮箱验证码就能重设一个新密码，不需要找裁判。</p>
+      </div>
+    </details>
+    <details><summary>角色选错了 / 想改公司名？</summary>
+      <div>
+        <p>可以改。但注意：<b>改角色会把你的资金重置为初始值</b>，开赛之后改等于自己认亏。公司名改名不影响资金，但改完要在群里喊一声，不然别人认不出你。</p>
+      </div>
+    </details>
+    <details><summary>提示「已经有一支队伍叫这个名字了」</summary>
+      <div>
+        <p>公司名全场唯一。换个名字就行 —— 这是为了防止合同、名录、邮件里出现两个一模一样的对手方，让人分不清在跟谁做生意。</p>
+      </div>
+    </details>
+    <details><summary>提示「比赛尚未开始」或「本财年已结算」</summary>
+      <div>
+        <p>比赛只在裁判「开启财年」到「结算财年」之间可玩。其余时间系统会拒绝一切交易、研发、路演、借贷和商战操作 —— 这是防止有人事后补单，不是 bug。等裁判开年即可。</p>
+      </div>
+    </details>
+    <details><summary>想同时当两家公司 / 一个人开两个号？</summary>
+      <div>
+        <p>不行。<b>一个邮箱只对应一家公司</b>，这是硬性纪律。一个人开两个号会让市场数据失真，也破坏了其他组的体验，一旦发现裁判会直接清空成绩。</p>
+      </div>
+    </details>
+    <details><summary>和队友想一起组队怎么办？</summary>
+      <div>
+        <p>一个账号 = 一家公司，需要几个人一起看屏幕是允许的。分工商量好谁负责买料、谁负责谈价、谁负责跑路演，比一个人手忙脚乱强得多。</p>
+      </div>
+    </details>
+  </div>
+
+  <h2><span class="n">7</span>比赛纪律（四条不能破）</h2>
+  <ol>
+    <li><b>一人一号。</b>不允许一个人用多个邮箱注册多家公司。</li>
+    <li><b>不许绕过系统。</b>所有交易、借款、战争都必须走系统完成。私下口头承诺可以，但只有系统里的记录算数。</li>
+    <li><b>不许改数据。</b>任何人都无法直接修改数据库；如果你想钻系统的空子（例如反复注册删号刷新资金），裁判会直接重置你的公司。</li>
+    <li><b>不许人身攻击。</b>商战、禁运、抢单都是允许的战术，但吵架、辱骂、孤立同学不在游戏范围内。场上的对手，场下还是同学。</li>
+  </ol>
+
+  <h2><span class="n">8</span>一个财年大概长什么样</h2>
+  <table>
+    <thead><tr><th>时间</th><th>裁判在做什么</th><th>你要做什么</th></tr></thead>
+    <tbody>
+      <tr><td>开场前</td><td>确认所有人注册完毕、角色配比合理</td><td>注册、建档、和队友确认分工</td></tr>
+      <tr><td>开年</td><td>点「开启财年」，公布新汇率与关税；政府领取新财年国库预算</td><td>先扫一眼行情带看现货价，再抢料 / 抢货；汇率和原材料余量也要看。<b>政府要先读「宏观体检报告」</b></td></tr>
+      <tr><td>前 1/3</td><td>处理研发审批、路演报价；<b>政府发布采购招标、颁布政策法令</b></td><td>制造商提研发、贸易商提路演方案、<b>看到招标单立刻抢</b>；顺手盯盘，趁低点补料。<b>缺口产能去「产业协作」下代工单</b></td></tr>
+      <tr><td>中段</td><td>观察市场、发布公告、处理商战审批；<b>政府按 CPI 做国库平准操作</b></td><td>签合同、投产、交付、换汇；想动手的先提交宣战 / 贸易战申请。<b>交战国此时就该把「军需订单」挂出去</b>，让市场替你备货</td></tr>
+      <tr><td>后段</td><td>推进战事、调停纠纷、裁定强执、干预行情；<b>政府决定要不要军援</b></td><td>清库存、还款、收尾；商战在这时候打完，行情也会跟着剧烈波动。<b>看到「军需供货」里的高价买单，就把囤货交进去</b></td></tr>
+      <tr><td>结算</td><td>点「结算财年」，公布排行榜</td><td>看财务报表复盘，想下一轮怎么打</td></tr>
+    </tbody>
+  </table>
+  <p>完整规则（含借贷中心、商战与制裁等进阶玩法）在登录后的<b>「帮助 → 规则手册」</b>里，随时可查。</p>
+
+  <h2><span class="n">9</span>进阶：把自己公司挂牌上市（物品交易所）</h2>
+  <p>左侧「<b>交易所</b>」分组里有一套完整的交易台 —— 原材料、成品、上市公司股票、企业债都能在这里像真股票一样买卖，顶部还有一条大盘指数栏（综合指数 KCI / 股权指数 KEI）。<b>注意：你现在日常买货卖货也在这里</b> ——「物品交易所 → 挂单交易台」的「上架货物 / 发布求购」就是以前的贸易市场，已经整体并进来了，全场只有这一个挂单入口。刚上手可以先不碰上市与股权，等你手里的钱多到"没地方花"的时候，那里就是新的战场。</p>
+  <h3>先记住三条撮合规则</h3>
+  <ol>
+    <li><b>价格优先、时间优先</b>：买价高的先成交、卖价低的先成交；同价时先挂的先成交。</li>
+    <li><b>成交价 = 先挂单方的报价</b>。所以<b>挂单比追价划算</b>：你报 11.00 先挂上，别人后报 11.40，成交还是按 11.00 算。</li>
+    <li><b>买单先冻钱、卖单先托管货</b>，没成交前都不算你的可用资源。撤单或成交后，多冻的部分原路退回。手续费 0.15%，买卖双方都收。</li>
+  </ol>
+  <p>委托价必须落在「开盘价 ±20%」的涨跌停板内，越界会被拒收。如果综合指数跌幅超过 6%，交易所会全场熔断停牌几档 —— 期间可以挂单、但不成交。</p>
+  <h3>上市：把公司变成一只股票</h3>
+  <p>进「交易所 → 上市与股权」提交申请：填股票代码、简称、总股本、公开发行比例（5%–50%）。系统会自动用 <b>发行价 = 净资产 ÷ 总股本</b> 定价，交组委会核准后挂牌，股票代码变成 <b>EQ:你的代码</b>。</p>
+  <ul>
+    <li><b>募资</b>：公开发行的那部分股份按发行价换成现金进你账户 —— 这就是"上市融资"。</li>
+    <li><b>分红</b>：挂牌后你可以随时把公司现金按持股比例分给全体股东，会全场公告，是拉抬股价最直接的手段。</li>
+    <li><b>看股东</b>：点市值榜里的「股东名册」，能看到每家上市公司的前十大股东与持股比例。</li>
+    <li><b>风险</b>：股价涨，你的净资产跟着涨；跌破发行价，你的净资产也跟着缩水。<b>上市不是白拿钱</b>，是把身价交给市场定价。</li>
+  </ul>
+  <h3>发债：另一种融资方式</h3>
+  <p>同一个分组下的「企业债市场」可以发行企业债：填票面利率、信用评级（AAA / AA / A / BBB）、规模与到期财年，核准后以 <b>BND:编号</b> 上架，全场都能认购。债主每财年拿票息、到期拿回本金。<b>评级越低，利息越高，违约风险也越大</b> —— 买债之前先看看发行方账上还有多少钱。</p>
+  <div class="box info">建议节奏：第 1–2 个财年先熟悉买卖、合同、借贷；等净资产上了一个台阶，再考虑挂牌上市或发债融资。交易所的交易规则、集合竞价、熔断与结算单，都在<b>「帮助 → 规则手册」第五节第 7 条</b>里写得很细。</div>
+
+  <footer>
+    <b>商业大陆 · 商业模拟运营赛</b> · 新社员注册与开赛指引<br>
+    赛场网址 <a href="https://biz-sim-arena.app.workbuddy.host/" target="_blank" rel="noopener">https://biz-sim-arena.app.workbuddy.host/</a> ·
+    需要政府 / 裁判口令请向组委会索取 · 有疑问直接找裁判
+  </footer>
+
+</div>
+</body>
+</html>

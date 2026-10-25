@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" id="themeColor" content="#f4f6fa">
+<title>商赛模拟系统 · 商业大陆</title>
+<link rel="stylesheet" href="styles.css?v=26">
+<script>
+// 尽早定主题，避免暗色模式下先闪一下白屏
+(function () {
+  try {
+    var t = localStorage.getItem('bizsim.theme');
+    if (t !== 'dark' && t !== 'light') {
+      t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+    }
+    document.documentElement.setAttribute('data-theme', t);
+    var m = document.querySelector('meta[name="theme-color"]');
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+
+<div id="boot" class="boot">正在连接比赛服务器…</div>
+
+<!-- ================= 认证 ================= -->
+<div id="authView" class="auth-wrap hidden">
+  <div class="auth-hero">
+    <div class="mark"><i></i>商业大陆 · 商业模拟</div>
+    <h1>在几个财年里，<br>把你的公司做到第一。</h1>
+    <p>原材料是限量的，汇率和关税会变，对手随时可能毁约。系统只负责记账与结算，胜负由你和另外几十支队伍谈出来。</p>
+    <div class="auth-roles">
+      <span>生产商</span><span>贸易商</span><span>新闻媒体</span><span>裁判 / 组委会</span>
+    </div>
+  </div>
+  <div class="auth-panel">
+    <div class="auth-box">
+      <h2 id="authTitle">登录赛场</h2>
+      <p class="sub" id="authSub">用邮箱进入你所在的比赛。</p>
+
+      <div class="tabs" id="authTabs">
+        <button type="button" data-mode="password" class="on">密码登录</button>
+        <button type="button" data-mode="otp">验证码登录</button>
+        <button type="button" data-mode="signup">注册</button>
+      </div>
+
+      <form id="formPassword">
+        <div class="field">
+          <label for="pwEmail">邮箱</label>
+          <input type="email" id="pwEmail" autocomplete="email" placeholder="you@example.com" required>
+        </div>
+        <div class="field">
+          <label for="pwPassword">密码</label>
+          <input type="password" id="pwPassword" autocomplete="current-password" placeholder="不少于 6 位" required>
+        </div>
+        <button class="btn primary block" type="submit" id="pwSubmit">登录</button>
+        <div class="linkline"><a id="toForgot">忘记密码？</a></div>
+      </form>
+
+      <form id="formOtp" class="hidden">
+        <div class="field">
+          <label for="otpEmail">邮箱</label>
+          <input type="email" id="otpEmail" autocomplete="email" placeholder="you@example.com" required>
+        </div>
+        <div class="field">
+          <label for="otpCode">邮箱验证码</label>
+          <div class="row-inline">
+            <input id="otpCode" inputmode="numeric" autocomplete="one-time-code" placeholder="6 位数字" required>
+            <button class="btn ghost" type="button" id="otpSend">获取验证码</button>
+          </div>
+        </div>
+        <div class="field hidden" id="otpPwWrap">
+          <label for="otpPassword">设置密码（新账号需要）</label>
+          <input type="password" id="otpPassword" autocomplete="new-password" placeholder="不少于 6 位">
+        </div>
+        <button class="btn primary block" type="submit" id="otpSubmit">登录</button>
+      </form>
+
+      <form id="formSignup" class="hidden">
+        <div class="field">
+          <label for="suEmail">邮箱</label>
+          <input type="email" id="suEmail" autocomplete="email" placeholder="you@example.com" required>
+        </div>
+        <div class="field">
+          <label for="suCode">邮箱验证码</label>
+          <div class="row-inline">
+            <input id="suCode" inputmode="numeric" autocomplete="one-time-code" placeholder="6 位数字" required>
+            <button class="btn ghost" type="button" id="suSend">获取验证码</button>
+          </div>
+        </div>
+        <div class="field">
+          <label for="suPassword">设置密码</label>
+          <input type="password" id="suPassword" autocomplete="new-password" placeholder="不少于 6 位，用于下次登录" required>
+        </div>
+        <button class="btn primary block" type="submit" id="suSubmit">注册并进入</button>
+      </form>
+
+      <form id="formForgot" class="hidden">
+        <div class="field">
+          <label for="fgEmail">注册邮箱</label>
+          <input type="email" id="fgEmail" autocomplete="email" placeholder="you@example.com" required>
+        </div>
+        <div class="field">
+          <label for="fgCode">邮箱验证码</label>
+          <input id="fgCode" inputmode="numeric" placeholder="6 位数字" required>
+        </div>
+        <div class="field">
+          <label for="fgPassword">新密码</label>
+          <input type="password" id="fgPassword" autocomplete="new-password" placeholder="不少于 6 位" required>
+        </div>
+        <button class="btn primary block" type="submit" id="fgSubmit">重置密码</button>
+        <div class="linkline"><a id="backToLogin">返回登录</a></div>
+      </form>
+
+      <div class="auth-msg" id="authMsg"></div>
+
+      <p class="guide-link">第一次来？先看 <a href="guide.html" target="_blank" rel="noopener">《新社员注册与开赛指引》→</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- ================= 建档 ================= -->
+<div id="setupView" class="hidden" style="max-width:760px;margin:0 auto;padding:56px 20px;">
+  <div class="card">
+    <h3>组建你的队伍</h3>
+    <p class="hint">角色一经选定即代表你在本场比赛中的身份，请与裁判确认后再提交。提交后仍可修改，但会重置为初始资金。</p>
+    <div class="field">
+      <label for="setCompany">队伍 / 公司名称</label>
+      <input id="setCompany" maxlength="24" placeholder="例如：北岭机械制造">
+    </div>
+    <div class="field">
+      <label>选择角色</label>
+      <div class="grid c2" id="roleCards"></div>
+    </div>
+    <div class="field hidden" id="judgeCodeWrap">
+      <label for="setJudgeCode">管理口令</label>
+      <input id="setJudgeCode" autocomplete="off" maxlength="40" placeholder="「政府 / 裁判」由组委会任命，请向裁判索取口令">
+      <p class="hint" style="margin:6px 0 0;">这两个角色能审批研发、定价、调汇率、调控全场资金，因此不开放自助注册。</p>
+    </div>
+    <button class="btn primary" id="setSubmit" style="margin-top:8px;">确认并进入赛场</button>
+    <p class="hint" style="margin-top:12px;">不确定选哪个角色？先看 <a href="guide.html" target="_blank" rel="noopener">《新社员注册与开赛指引》</a>。</p>
+  </div>
+</div>
+
+<!-- ================= 主应用 ================= -->
+<div id="appView" class="hidden">
+  <div class="topbar">
+    <div class="brand"><i></i>商业大陆<small>BIZ SIM</small></div>
+    <div class="status-chips" id="statusChips"></div>
+    <div class="who">
+      <span class="tag" id="whoTag">—</span>
+      <span id="whoName">—</span>
+      <button class="icon-btn" id="btnTheme" title="切换到暗色模式" aria-label="切换到暗色模式">
+        <svg class="ic-sun" viewBox="0 0 20 20" width="17" height="17" aria-hidden="true">
+          <circle cx="10" cy="10" r="3.6" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M10 1.6v2.2M10 16.2v2.2M1.6 10h2.2M16.2 10h2.2M4.1 4.1l1.6 1.6M14.3 14.3l1.6 1.6M15.9 4.1l-1.6 1.6M5.7 14.3l-1.6 1.6"
+                fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <svg class="ic-moon" viewBox="0 0 20 20" width="17" height="17" aria-hidden="true">
+          <path d="M16.4 12.3A6.9 6.9 0 0 1 7.7 3.6a7 7 0 1 0 8.7 8.7Z"
+                fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <button class="icon-btn" id="btnUiPrefs" title="显示设置：指数条 / 新闻条的高度与滚动" aria-label="显示设置">
+        <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true">
+          <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.49.49 0 0 0-.59-.22l-2.39.96a7.03 7.03 0 0 0-1.62-.94l-.36-2.54a.484.484 0 0 0-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96a.49.49 0 0 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32a.49.49 0 0 0-.12-.61l-2.01-1.58ZM12 15.6A3.6 3.6 0 1 1 12 8.4a3.6 3.6 0 0 1 0 7.2Z"
+                fill="currentColor"/>
+        </svg>
+      </button>
+      <button class="icon-btn" id="btnMail" title="站内邮箱" aria-label="站内邮箱">
+        <svg viewBox="0 0 20 20" width="17" height="17" aria-hidden="true">
+          <rect x="1.9" y="4.4" width="16.2" height="11.4" rx="1.4"
+                fill="none" stroke="currentColor" stroke-width="1.4"/>
+          <path d="M2.4 5.3 10 10.9l7.6-5.6"
+                fill="none" stroke="currentColor" stroke-width="1.4"
+                stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="badge hidden" id="mailBadge">0</span>
+      </button>
+      <button id="btnRefresh">刷新</button>
+      <button id="btnSignOut">退出</button>
+    </div>
+  </div>
+  <div class="idxbar" id="idxBar" aria-label="大盘指数">
+    <div class="idx-view" id="idxView"><div class="idx-track" id="idxTrack"></div></div>
+  </div>
+  <div class="newsbar" id="newsBar" aria-label="最新消息">
+    <div class="nb-tag"><i></i>商业新闻社<small>NEWS</small></div>
+    <div class="nb-view" id="nbView"><div class="nb-track" id="nbTrack"></div></div>
+    <div class="nb-more"><button data-act="goto" data-view="posts" title="打开公告板">全部公告 →</button></div>
+  </div>
+  <div id="previewBar" class="preview-bar hidden"></div>
+  <!-- 显示设置面板（右上角小齿轮开关） -->
+  <div class="uiprefs hidden" id="uiPrefs" role="dialog" aria-label="显示设置">
+    <div class="up-hd">显示设置</div>
+    <div class="up-row">
+      <label for="upIdxH">指数条高度 <b id="upIdxHv">56px</b></label>
+      <input type="range" id="upIdxH" min="44" max="100" step="2" value="56">
+    </div>
+    <div class="up-row">
+      <label for="upNbH">新闻条高度 <b id="upNbHv">36px</b></label>
+      <input type="range" id="upNbH" min="28" max="80" step="2" value="36">
+    </div>
+    <div class="up-row up-toggle">
+      <label for="upIdxScroll">指数条滚动</label>
+      <button type="button" class="up-sw on" id="upIdxScroll" role="switch" aria-checked="true" title="开关指数条滚动"><i></i></button>
+    </div>
+    <div class="up-row up-toggle">
+      <label for="upNbScroll">新闻条滚动</label>
+      <button type="button" class="up-sw on" id="upNbScroll" role="switch" aria-checked="true" title="开关新闻条滚动"><i></i></button>
+    </div>
+    <p class="up-tip">关闭滚动后可以按住左右拖动查看；设置会记在这台浏览器里。</p>
+  </div>
+  <div class="layout" id="layout">
+    <div class="navwrap">
+      <aside class="sidenav" id="nav"></aside>
+      <div class="nav-grip" id="navGrip" role="button" tabindex="0"
+           aria-label="收起或展开功能菜单" aria-expanded="true"
+           title="单击收起 / 展开功能菜单 · 左右拖动可调整宽度"></div>
+    </div>
+    <main id="view"></main>
+  </div>
+</div>
+
+<!-- ================= 交易大厅大屏（全屏投屏用） ================= -->
+<div id="hallWrap" class="hall hidden" role="dialog" aria-modal="true" aria-label="交易大厅大屏"></div>
+
+<div class="toast" id="toast"></div>
+
+<!-- 云端 SDK 本地自托管（v0.1.4），不再依赖 jsdelivr CDN（大陆网络下 CDN 经常无法访问导致卡在连接页） -->
+<script src="vendor/cloud-sdk.js?v=27"></script>
+<script src="config.js"></script>
+<script src="rulebook.js?v=30"></script>
+<script src="app.js?v=34"></script>
+<script src="egg.js?v=34"></script>
+</body>
+</html>
